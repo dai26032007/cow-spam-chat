@@ -1,0 +1,29 @@
+name: Send Telegram Broadcast (Sheep)
+
+# Tính năng workflow_dispatch cho phép bạn ấn nút Run bằng tay trên Github
+on:
+  workflow_dispatch: 
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install firebase-admin requests
+
+      - name: Run broadcast script
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN_2 }}
+          FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON_2 }}
+        run: python -u sheep.py
