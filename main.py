@@ -94,9 +94,7 @@ payload = {
             [
                 {
                     "text": btnText,
-                    "web_app": {
-                        "url": "https://t.me/LuckySheepFarm_bot?start=0"
-                    }
+                    "url": "https://t.me/LuckySheepFarm_bot?start=0"
                 }
             ]
         ]
