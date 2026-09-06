@@ -21,22 +21,85 @@ if not FIREBASE_CREDENTIALS_JSON:
 # LANG TEXTS
 # =====================================================
 LANG_TEXTS = {
-  "vi": "Hôm nay bạn đã cho bò ăn chưa?\nHôm nay bạn đã cho bò ăn chưa?\nHôm nay bạn đã cho bò ăn chưa?",
-  "en": "Have you fed the cows today?\nHave you fed the cows today?\nHave you fed the cows today?",
-  "ko": "오늘 소에게 밥을 주셨나요?\n오늘 소에게 밥을 주셨나요?\n오늘 소에게 밥을 주셨나요?"
-  # (Đã thu gọn danh sách ngôn ngữ để test cho nhanh, bạn có thể copy full danh sách cũ vào)
+  "vi": "Luckey Sheep Farm nay đã có thể chơi trên cả điện thoại và máy tính.\nChơi ngay: @LuckySheepFarm_bot",
+  "en": "Luckey Sheep Farm can now be played on both mobile and PC.\nPlay now: @LuckySheepFarm_bot",
+  "ar": "يمكن الآن لعب Luckey Sheep Farm على كلٍ من الهاتف والكمبيوتر.\nالعب الآن: @LuckySheepFarm_bot",
+  "be": "У Luckey Sheep Farm цяпер можна гуляць як на тэлефоне, так і на камп'ютары.\nГуляць цяпер: @LuckySheepFarm_bot",
+  "ca": "Luckey Sheep Farm ara es pot jugar tant al mòbil com a l'ordinador.\nJuga ara: @LuckySheepFarm_bot",
+  "zh-hans": "Luckey Sheep Farm 现已支持手机和电脑双端畅玩。\n立即游玩：@LuckySheepFarm_bot",
+  "zh-hant": "Luckey Sheep Farm 現已支援手機與電腦雙平台遊玩。\n立即遊玩：@LuckySheepFarm_bot",
+  "hr": "Luckey Sheep Farm sada se može igrati i na mobitelu i na računalu.\nIgraj odmah: @LuckySheepFarm_bot",
+  "cs": "Luckey Sheep Farm lze nyní hrát na mobilu i na počítači.\nHrát hned: @LuckySheepFarm_bot",
+  "nl": "Luckey Sheep Farm kan nu worden gespeeld op zowel mobiel als computer.\nSpeel nu: @LuckySheepFarm_bot",
+  "fi": "Luckey Sheep Farmia voi nyt pelata sekä puhelimella että tietokoneella.\nPelaa nyt: @LuckySheepFarm_bot",
+  "fr": "Luckey Sheep Farm est désormais jouable sur mobile et sur ordinateur.\nJouer maintenant : @LuckySheepFarm_bot",
+  "de": "Luckey Sheep Farm kann jetzt sowohl auf dem Handy als auch auf dem PC gespielt werden.\nJetzt spielen: @LuckySheepFarm_bot",
+  "he": "כעת ניתן לשחק ב-Luckey Sheep Farm גם בטלפון הנייד וגם במחשב.\nשחק עכשיו: @LuckySheepFarm_bot",
+  "hu": "A Luckey Sheep Farm mostantól telefonon és számítógépen is játszható.\nJátssz most: @LuckySheepFarm_bot",
+  "id": "Luckey Sheep Farm kini sudah bisa dimainkan di ponsel maupun komputer.\nMain sekarang: @LuckySheepFarm_bot",
+  "it": "Luckey Sheep Farm è ora disponibile sia su smartphone che su computer.\nGioca ora: @LuckySheepFarm_bot",
+  "kk": "Luckey Sheep Farm ойынын енді телефонда да, компьютерде де ойнауға болады.\nҚазір ойнау: @LuckySheepFarm_bot",
+  "ko": "이제 모바일과 PC 모두에서 Luckey Sheep Farm을 즐기실 수 있습니다.\n지금 플레이: @LuckySheepFarm_bot",
+  "ms": "Luckey Sheep Farm kini boleh dimainkan pada telefon pintar dan komputer.\nMain sekarang: @LuckySheepFarm_bot",
+  "nb": "Luckey Sheep Farm kan nå spilles på både mobil og PC.\nSpill nå: @LuckySheepFarm_bot",
+  "fa": "اکنون می‌توانید Luckey Sheep Farm را هم روی تلفن همراه و هم روی رایانه بازی کنید.\nهمین حالا بازی کنید: @LuckySheepFarm_bot",
+  "pl": "W Luckey Sheep Farm można teraz grać zarówno na telefonie, jak i na komputerze.\nZagraj teraz: @LuckySheepFarm_bot",
+  "pt-br": "Luckey Sheep Farm agora pode ser jogado tanto no celular quanto no computador.\nJogue agora: @LuckySheepFarm_bot",
+  "ro": "Luckey Sheep Farm poate fi jucat acum atât pe telefon, cât și pe computer.\nJoacă acum: @LuckySheepFarm_bot",
+  "ru": "В Luckey Sheep Farm теперь можно играть как на телефоне, так и на компьютере.\nИграть сейчас: @LuckySheepFarm_bot",
+  "sr": "Luckey Sheep Farm се сада може играти и на телефону и на рачунару.\nИграј одмах: @LuckySheepFarm_bot",
+  "sk": "Luckey Sheep Farm sa teraz dá hrať na telefóne aj na počítači.\nHrať hneď: @LuckySheepFarm_bot",
+  "es": "Luckey Sheep Farm ahora se puede jugar tanto en el móvil como en el ordenador.\nJugar ahora: @LuckySheepFarm_bot",
+  "sv": "Luckey Sheep Farm kan nu spelas på både mobil och dator.\nSpela nu: @LuckySheepFarm_bot",
+  "tr": "Luckey Sheep Farm artık hem telefonda hem de bilgisayarda oynanabilir.\nŞimdi oyna: @LuckySheepFarm_bot",
+  "uk": "У Luckey Sheep Farm тепер можна грати як на телефоні, так і на комп'ютері.\nГрати зараз: @LuckySheepFarm_bot",
+  "uz": "Luckey Sheep Farm endi telefon va kompyuterda ham o'ynalishi mumkin.\nHozir o'ynang: @LuckySheepFarm_bot"
 }
 
 BUTTON_TEXTS = {
-  "vi": "🐮 Mở Nông Trại",
-  "en": "🐮 Open Farm",
-  "ko": "🐮 농장 열기"
+  "vi": "🌟 CHƠI NGAY 🌟",
+  "en": "🌟 PLAY NOW 🌟",
+  "ar": "🌟 العب الآن 🌟",
+  "be": "🌟 ГУЛЯЦЬ ЦЯПЕР 🌟",
+  "ca": "🌟 JUGA ARA 🌟",
+  "zh-hans": "🌟 立即游玩 🌟",
+  "zh-hant": "🌟 立即遊玩 🌟",
+  "hr": "🌟 IGRAJ ODMAH 🌟",
+  "cs": "🌟 HRÁT HNED 🌟",
+  "nl": "🌟 SPEEL NU 🌟",
+  "fi": "🌟 PELAA NYT 🌟",
+  "fr": "🌟 JOUER MAINTENANT 🌟",
+  "de": "🌟 JETZT SPIELEN 🌟",
+  "he": "🌟 שחק עכשיו 🌟",
+  "hu": "🌟 JÁTSSZ MOST 🌟",
+  "id": "🌟 MAIN SEKARANG 🌟",
+  "it": "🌟 GIOCA ORA 🌟",
+  "kk": "🌟 ҚАЗІР ОЙНАУ 🌟",
+  "ko": "🌟 지금 Play 🌟",
+  "ms": "🌟 MAIN SEKARANG 🌟",
+  "nb": "🌟 SPIL NÅ 🌟",
+  "fa": "🌟 همین حالا بازی کنید 🌟",
+  "pl": "🌟 ZAGRAJ TERAZ 🌟",
+  "pt-br": "🌟 JOGUE AGORA 🌟",
+  "ro": "🌟 JOACĂ ACUM 🌟",
+  "ru": "🌟 ИГРАТЬ СЕЙЧАС 🌟",
+  "sr": "🌟 ИГРАЈ ОДМАХ 🌟",
+  "sk": "🌟 HRAT HNEĎ 🌟",
+  "es": "🌟 JUGAR AHORA 🌟",
+  "sv": "🌟 SPELA NU 🌟",
+  "tr": "🌟 ŞİMDİ OYNA 🌟",
+  "uk": "🌟 ГРАТИ ЗАРАЗ 🌟",
+  "uz": "🌟 HOZIR O'YNANG 🌟"
 }
 
 # =====================================================
 # FIREBASE CREDENTIALS
 # =====================================================
-cert_dict = json.loads(FIREBASE_CREDENTIALS_JSON)
+try:
+    cert_dict = json.loads(FIREBASE_CREDENTIALS_JSON)
+except json.JSONDecodeError:
+    raise ValueError("Lỗi: FIREBASE_CREDENTIALS_JSON không phải là một chuỗi JSON hợp lệ.")
+
 cred = credentials.Certificate(cert_dict)
 
 try:
@@ -44,68 +107,153 @@ try:
         "databaseURL": DATABASE_URL
     })
 except ValueError:
-    pass 
+    pass # Bỏ qua nếu app đã được initialize trước đó
 
+# =====================================================
+# TELEGRAM
+# =====================================================
 API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 
 # =====================================================
-# CHỈ TEST CHO 1 USER
+# LẤY DANH SÁCH USER (Giữ nguyên thứ tự của Firebase)
 # =====================================================
-# Lấy ID của bạn từ ảnh chụp màn hình lúc nãy
-TEST_CHAT_ID = "8065435277" 
+print("Đang tải danh sách người dùng từ Firebase...")
+users = db.reference("users").get() or {}
 
-print(f"Đang tải dữ liệu của ID {TEST_CHAT_ID} từ Firebase...")
-user_ref = db.reference(f"users/{TEST_CHAT_ID}")
-user_data = user_ref.get()
+chat_ids = list(users.keys())
+total_all = len(chat_ids)
+print(f"Tổng số user trong Database: {total_all}")
 
-if not user_data:
-    print(f"❌ Không tìm thấy ID {TEST_CHAT_ID} trong Database!")
+# =====================================================
+# ĐỌC TIẾN ĐỘ TỪ FIREBASE (RESUME BẰNG INDEX)
+# =====================================================
+progress_ref = db.reference("broadcast_progress/last_chat_uid")
+last_chat_uid = progress_ref.get()
+
+if not last_chat_uid:
+    print("Chưa có mốc tiến độ trên db, bắt đầu chạy từ đầu danh sách!")
+    chat_ids_to_run = chat_ids
+else:
+    last_chat_uid = str(last_chat_uid)
+    print(f"Tìm thấy tiến độ cũ trên Database. Mốc ID cuối là: {last_chat_uid}")
+
+    if last_chat_uid in chat_ids:
+        last_index = chat_ids.index(last_chat_uid)
+        chat_ids_to_run = chat_ids[last_index + 1:]
+        print(f"Đã tìm thấy ID {last_chat_uid} ở vị trí {last_index + 1}/{total_all}.")
+    else:
+        print(f"Không tìm thấy ID {last_chat_uid} trong danh sách, chạy lại từ đầu!")
+        chat_ids_to_run = chat_ids
+
+total = len(chat_ids_to_run)
+print(f"Số lượng user sẽ được gửi trong lần chạy này: {total}")
+
+if total == 0:
+    print("Đã gửi xong toàn bộ danh sách. Không còn ai để gửi!")
+    progress_ref.delete()
     exit(0)
 
 # =====================================================
-# IN LOG KIỂM TRA
+# THỐNG KÊ
 # =====================================================
-print("\n" + "="*40)
-print("🔍 KIỂM TRA LOG DỮ LIỆU:")
-
-lang = user_data.get("language")
-print(f"-> Ngôn ngữ gốc đọc từ Firebase: '{lang}'")
-
-if not lang or lang not in LANG_TEXTS:
-    print(f"-> ⚠️ Ngôn ngữ '{lang}' không có trong từ điển, tự động chuyển sang 'en'.")
-    lang = "en"
-
-text = LANG_TEXTS[lang]
-btnText = BUTTON_TEXTS[lang]
-
-print(f"-> Cụm từ sẽ được gửi: '{text.split(chr(10))[0]}...'")
-print("="*40 + "\n")
+success = 0
+blocked = 0
+failed = 0
+start = time.time()
 
 # =====================================================
-# GỬI TIN NHẮN
+# GỬI
 # =====================================================
-payload = {
-    "chat_id": int(TEST_CHAT_ID),
-    "photo": "https://i.postimg.cc/HsSD3mDc/Chat-GPT-Image-15-46-51-6-thg-9-2026.png",
-    "caption": text,
-    "parse_mode": "HTML",
-    "reply_markup": {
-        "inline_keyboard": [
+for index, chat_id in enumerate(chat_ids_to_run, 1):
+    try:
+        chat_id_int = int(chat_id)
+    except ValueError:
+        continue
+    user_data = users.get(chat_id, {})
+    lang = user_data.get("language", "en")
+    
+    text = LANG_TEXTS.get(lang, LANG_TEXTS["en"])
+    btnText = BUTTON_TEXTS.get(lang, BUTTON_TEXTS["en"])
+
+    payload = {
+      "chat_id": chat_id_int,
+      "photo": "https://i.postimg.cc/HsSD3mDc/Chat-GPT-Image-15-46-51-6-thg-9-2026.png",
+      "caption": text,
+      "parse_mode": "HTML",
+      "reply_markup": {
+          "inline_keyboard": [
             [
                 {
                     "text": btnText,
                     "url": "https://t.me/LuckySheepFarm_bot?start=0"
                 }
             ]
-        ]
+         ]
+      }
     }
-}
+    while True:
+        try:
+            response = requests.post(
+                API,
+                json=payload,
+                timeout=30
+            )
 
-print("Đang gửi qua Telegram...")
-response = requests.post(API, json=payload, timeout=30)
-data = response.json()
+            data = response.json()
 
-if data.get("ok"):
-    print(f"✅ THÀNH CÔNG: Đã gửi tin nhắn test bằng ngôn ngữ '{lang}' tới {TEST_CHAT_ID}.")
-else:
-    print(f"❌ THẤT BẠI: {data.get('description')}")
+            if data.get("ok"):
+                success += 1
+                print(f"[{index}/{total}] ✅ {chat_id}")
+                break
+
+            error_code = data.get("error_code")
+            description = data.get("description", "")
+
+            if error_code == 429:
+                retry = data.get("parameters", {}).get("retry_after", 5)
+                print(f"[{index}/{total}] ⏳ Rate limit, chờ {retry}s...")
+                time.sleep(retry)
+                continue
+
+            if error_code == 403:
+                blocked += 1
+                print(f"[{index}/{total}] 🚫 Blocked {chat_id}")
+                break
+
+            failed += 1
+            print(f"[{index}/{total}] ❌ {chat_id} : {description}")
+            break
+
+        except Exception as e:
+            failed += 1
+            print(f"[{index}/{total}] ERROR {chat_id}: {e}")
+            break
+
+    # Ghi tiến độ
+    try:
+        progress_ref.set(str(chat_id))
+    except Exception as e:
+        print(f"Không thể lưu tiến độ cho ID {chat_id}: {e}")
+
+    time.sleep(0.1)
+
+# =====================================================
+# KẾT QUẢ VÀ XÓA MỐC KHI HOÀN THÀNH
+# =====================================================
+try:
+    progress_ref.delete()
+    print("✨ Đã gửi hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
+except Exception as e:
+    print(f"⚠️ Lỗi khi xóa mốc tiến độ: {e}")
+
+elapsed = time.time() - start
+
+print()
+print("=" * 60)
+print("DONE - KẾT THÚC LẦN CHẠY NÀY")
+print("=" * 60)
+print("Total (lần chạy này) :", total)
+print("Success              :", success)
+print("Blocked              :", blocked)
+print("Failed               :", failed)
+print(f"Time                 : {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
