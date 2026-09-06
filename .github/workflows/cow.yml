@@ -1,4 +1,4 @@
-name: Send Telegram Broadcast
+name: Send Telegram Broadcast (Cow)
 
 # Tính năng workflow_dispatch cho phép bạn ấn nút Run bằng tay trên Github
 on:
@@ -26,4 +26,4 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON }}
-        run: python -u main.py
+        run: python -u cow.py
