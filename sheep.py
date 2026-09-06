@@ -96,9 +96,9 @@ BUTTON_TEXTS = {
 # FIREBASE CREDENTIALS
 # =====================================================
 try:
-    cert_dict = json.loads(FIREBASE_CREDENTIALS_JSON_2)
+    cert_dict = json.loads(FIREBASE_CREDENTIALS_JSON)
 except json.JSONDecodeError:
-    raise ValueError("Lỗi: FIREBASE_CREDENTIALS_JSON_2 không phải là một chuỗi JSON hợp lệ.")
+    raise ValueError("Lỗi: FIREBASE_CREDENTIALS_JSON không phải là một chuỗi JSON hợp lệ.")
 
 cred = credentials.Certificate(cert_dict)
 
