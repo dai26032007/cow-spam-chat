@@ -24,6 +24,6 @@ jobs:
 
       - name: Run broadcast script
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN_2 }}
-          FIREBASE_CREDENTIALS_JSON: ${{ secrets.FIREBASE_CREDENTIALS_JSON_2 }}
+          TELEGRAM_BOT_TOKEN_2: ${{ secrets.TELEGRAM_BOT_TOKEN_2 }}
+          FIREBASE_CREDENTIALS_JSON_2: ${{ secrets.FIREBASE_CREDENTIALS_JSON_2 }}
         run: python -u sheep.py
