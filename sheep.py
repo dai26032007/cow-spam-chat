@@ -21,39 +21,39 @@ if not FIREBASE_CREDENTIALS_JSON:
 # LANG TEXTS
 # =====================================================
 LANG_TEXTS = {
-  "vi": "Luckey Sheep Farm nay đã có thể chơi trên cả điện thoại và máy tính.\nChơi ngay: @LuckySheepFarm_bot",
-  "en": "Luckey Sheep Farm can now be played on both mobile and PC.\nPlay now: @LuckySheepFarm_bot",
-  "ar": "يمكن الآن لعب Luckey Sheep Farm على كلٍ من الهاتف والكمبيوتر.\nالعب الآن: @LuckySheepFarm_bot",
-  "be": "У Luckey Sheep Farm цяпер можна гуляць як на тэлефоне, так і на камп'ютары.\nГуляць цяпер: @LuckySheepFarm_bot",
-  "ca": "Luckey Sheep Farm ara es pot jugar tant al mòbil com a l'ordinador.\nJuga ara: @LuckySheepFarm_bot",
-  "zh-hans": "Luckey Sheep Farm 现已支持手机和电脑双端畅玩。\n立即游玩：@LuckySheepFarm_bot",
-  "zh-hant": "Luckey Sheep Farm 現已支援手機與電腦雙平台遊玩。\n立即遊玩：@LuckySheepFarm_bot",
-  "hr": "Luckey Sheep Farm sada se može igrati i na mobitelu i na računalu.\nIgraj odmah: @LuckySheepFarm_bot",
-  "cs": "Luckey Sheep Farm lze nyní hrát na mobilu i na počítači.\nHrát hned: @LuckySheepFarm_bot",
-  "nl": "Luckey Sheep Farm kan nu worden gespeeld op zowel mobiel als computer.\nSpeel nu: @LuckySheepFarm_bot",
-  "fi": "Luckey Sheep Farmia voi nyt pelata sekä puhelimella että tietokoneella.\nPelaa nyt: @LuckySheepFarm_bot",
-  "fr": "Luckey Sheep Farm est désormais jouable sur mobile et sur ordinateur.\nJouer maintenant : @LuckySheepFarm_bot",
-  "de": "Luckey Sheep Farm kann jetzt sowohl auf dem Handy als auch auf dem PC gespielt werden.\nJetzt spielen: @LuckySheepFarm_bot",
-  "he": "כעת ניתן לשחק ב-Luckey Sheep Farm גם בטלפון הנייד וגם במחשב.\nשחק עכשיו: @LuckySheepFarm_bot",
-  "hu": "A Luckey Sheep Farm mostantól telefonon és számítógépen is játszható.\nJátssz most: @LuckySheepFarm_bot",
-  "id": "Luckey Sheep Farm kini sudah bisa dimainkan di ponsel maupun komputer.\nMain sekarang: @LuckySheepFarm_bot",
-  "it": "Luckey Sheep Farm è ora disponibile sia su smartphone che su computer.\nGioca ora: @LuckySheepFarm_bot",
-  "kk": "Luckey Sheep Farm ойынын енді телефонда да, компьютерде де ойнауға болады.\nҚазір ойнау: @LuckySheepFarm_bot",
-  "ko": "이제 모바일과 PC 모두에서 Luckey Sheep Farm을 즐기실 수 있습니다.\n지금 플레이: @LuckySheepFarm_bot",
-  "ms": "Luckey Sheep Farm kini boleh dimainkan pada telefon pintar dan komputer.\nMain sekarang: @LuckySheepFarm_bot",
-  "nb": "Luckey Sheep Farm kan nå spilles på både mobil og PC.\nSpill nå: @LuckySheepFarm_bot",
-  "fa": "اکنون می‌توانید Luckey Sheep Farm را هم روی تلفن همراه و هم روی رایانه بازی کنید.\nهمین حالا بازی کنید: @LuckySheepFarm_bot",
-  "pl": "W Luckey Sheep Farm można teraz grać zarówno na telefonie, jak i na komputerze.\nZagraj teraz: @LuckySheepFarm_bot",
-  "pt-br": "Luckey Sheep Farm agora pode ser jogado tanto no celular quanto no computador.\nJogue agora: @LuckySheepFarm_bot",
-  "ro": "Luckey Sheep Farm poate fi jucat acum atât pe telefon, cât și pe computer.\nJoacă acum: @LuckySheepFarm_bot",
-  "ru": "В Luckey Sheep Farm теперь можно играть как на телефоне, так и на компьютере.\nИграть сейчас: @LuckySheepFarm_bot",
-  "sr": "Luckey Sheep Farm се сада може играти и на телефону и на рачунару.\nИграј одмах: @LuckySheepFarm_bot",
-  "sk": "Luckey Sheep Farm sa teraz dá hrať na telefóne aj na počítači.\nHrať hneď: @LuckySheepFarm_bot",
-  "es": "Luckey Sheep Farm ahora se puede jugar tanto en el móvil como en el ordenador.\nJugar ahora: @LuckySheepFarm_bot",
-  "sv": "Luckey Sheep Farm kan nu spelas på både mobil och dator.\nSpela nu: @LuckySheepFarm_bot",
-  "tr": "Luckey Sheep Farm artık hem telefonda hem de bilgisayarda oynanabilir.\nŞimdi oyna: @LuckySheepFarm_bot",
-  "uk": "У Luckey Sheep Farm тепер можна грати як на телефоні, так і на комп'ютері.\nГрати зараз: @LuckySheepFarm_bot",
-  "uz": "Luckey Sheep Farm endi telefon va kompyuterda ham o'ynalishi mumkin.\nHozir o'ynang: @LuckySheepFarm_bot"
+  "vi": "Có thể bạn đã biết: Click vào quảng cáo sẽ giúp bạn nhận được nhiều len hơn!",
+  "en": "Did you know: Clicking on ads helps you get more wool!",
+  "ar": "قد تكون على علم بالفعل: النقر على الإعلانات يساعدك في الحصول على المزيد من الصوف!",
+  "be": "Магчыма, вы ўжо ведаеце: клік па рэкламе дапаможа вам атрымаць больш воўны!",
+  "ca": "Potser ja ho saps: fer clic als anuncis t'ajudarà a aconseguir més llana!",
+  "zh-hans": "您可能已经知道：点击广告可以帮您获得更多羊毛！",
+  "zh-hant": "您可能已經知道：點擊廣告可以幫您獲得更多羊毛！",
+  "hr": "Možda već znate: Klik na oglase pomoći će vam da dobijete više vune!",
+  "cs": "Možná už víte: Kliknutí na reklamu vám pomůže získat více vlny!",
+  "nl": "Wist je dat al: op advertenties klikken helpt je om meer wol te krijgen!",
+  "fi": "Ehkä tiesitkin jo: mainosten klikkaaminen auttaa saamaan enemmän villaa!",
+  "fr": "Le saviez-vous : cliquer sur les publicités vous aide à obtenir plus de laine !",
+  "de": "Wusstest du schon: Durch das Klicken auf Anzeigen erhältst du mehr Wolle!",
+  "he": "אולי כבר ידעת: לחיצה על מודעות תעזור לך לקבל יותר צמר!",
+  "hu": "Lehet, hogy már tudod: a hirdetésekre kattintva több gyapjút szerezhetsz!",
+  "id": "Mungkin Anda sudah tahu: Mengklik iklan akan membantu Anda mendapatkan lebih banyak wol!",
+  "it": "Forse lo sai già: cliccare sugli annunci ti aiuta a ottenere più lana!",
+  "kk": "Білген боларсыз: Жарнаманы басу көбірек жүн алуға көмектеседі!",
+  "ko": "알고 계셨나요? 광고를 클릭하면 더 많은 양털을 얻을 수 있습니다!",
+  "ms": "Mungkin anda sudah tahu: Klik pada iklan akan membantu anda memperoleh lebih banyak bulu!",
+  "nb": "Kanskje visste du det allerede: Å klikke på annonser hjelper deg å få mer ull!",
+  "fa": "شاید از قبل بدانید: کلیک روی تبلیغات به شما کمک می‌کند پشم بیشتری دریافت کنید!",
+  "pl": "Być może już wiesz: klikanie w reklamy pomoże ci zdobyć więcej wełny!",
+  "pt-br": "Você sabia? Clicar nos anúncios ajuda você a conseguir mais lã!",
+  "ro": "Poate știai deja: dând clic pe reclame vei primi mai multă lână!",
+  "ru": "Возможно, вы уже знаете: клик по рекламе поможет получить больше шерсти!",
+  "sr": "Можда већ знате: Клик на огласе помоћи ће вам да добијете више вуне!",
+  "sk": "Možno už viete: Kliknutie na reklamy vám pomôže získať viac vlny!",
+  "es": "Quizás ya lo sepas: ¡hacer clic en los anuncios te ayudará a conseguir más lana!",
+  "sv": "Visste du att: att klicka på annonser hjälper dig att få mer ull!",
+  "tr": "Biliyor muydunuz: Reklamlara tıklamak daha fazla yün kazanmanıza yardımcı olur!",
+  "uk": "Можливо, ви вже знаєте: клік по рекламі допоможе вам отримати більше вовни!",
+  "uz": "Balki bilsangiz kerak: Reklamalarni bosish ko'proq jun olishingizga yordam beradi!"
 }
 
 BUTTON_TEXTS = {
@@ -177,7 +177,7 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
 
     payload = {
       "chat_id": chat_id_int,
-      "photo": "https://i.postimg.cc/xdqzqMLV/Chat-GPT-Image-17-05-39-6-thg-9-2026.png",
+      "photo": "https://i.ibb.co/RG8RXW1N/Chat-GPT-Image-20-03-20-9-thg-9-2026.png",
       "caption": text,
       "parse_mode": "HTML",
       "reply_markup": {
@@ -185,9 +185,7 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
               [
                   {
                       "text": btnText,
-                      "web_app": {
-                          "url": "https://luckysheepfarm.vercel.app/"
-                      }
+                      "url": 'https://t.me/LuckySheepFarm_bot/play'
                   }
               ]
           ]
