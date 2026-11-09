@@ -111,7 +111,7 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
 
     payload = {
       "chat_id": chat_id_int,
-      "photo": "https://app9006949357.tgcloud.ai/ref.png",
+      "photo": "https://app9006949357.tgcloud.ai/invite.png?=0",
       "reply_markup": {
           "inline_keyboard": [
               [
