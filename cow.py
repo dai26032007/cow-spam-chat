@@ -18,81 +18,6 @@ if not FIREBASE_CREDENTIALS_JSON:
     raise ValueError("Lỗi: Không tìm thấy biến môi trường 'FIREBASE_CREDENTIALS_JSON'")
 
 # =====================================================
-# LANG TEXTS
-# =====================================================
-LANG_TEXTS = {
-  "vi": "Hôm nay bạn đã cho bò ăn chưa?\nHôm nay bạn đã cho bò ăn chưa?\nHôm nay bạn đã cho bò ăn chưa?",
-  "en": "Have you fed the cows today?\nHave you fed the cows today?\nHave you fed the cows today?",
-  "ar": "هل أطعمت الأبقار اليوم؟\nهل أطعمت الأبقار اليوم؟\nهل أطعمت الأبقار اليوم؟",
-  "be": "Вы ўжо пакармілі кароў сёння?\nВы ўжо пакармілі кароў сёння?\nВы ўжо пакармілі кароў сёння?",
-  "ca": "Ja has alimentat les vaques avui?\nJa has alimentat les vaques avui?\nJa has alimentat les vaques avui?",
-  "zh-hans": "今天你喂牛了吗？\n今天你喂牛了吗？\n今天你喂牛了吗？",
-  "zh-hant": "今天你餵牛了嗎？\n今天你餵牛了嗎？\n今天你餵牛了嗎？",
-  "hr": "Jeste li danas nahranili krave?\nJeste li danas nahranili krave?\nJeste li danas nahranili krave?",
-  "cs": "Nakrmili jste dnes krávy?\nNakrmili jste dnes krávy?\nNakrmili jste dnes krávy?",
-  "nl": "Heb je de koeien vandaag al gevoerd?\nHeb je de koeien vandaag al gevoerd?\nHeb je de koeien vandaag al gevoerd?",
-  "fi": "Oletko jo ruokkinut lehmät tänään?\nOletko jo ruokkinut lehmät tänään?\nOletko jo ruokkinut lehmät tänään?",
-  "fr": "Avez-vous nourri les vaches aujourd'hui ?\nAvez-vous nourri les vaches aujourd'hui ?\nAvez-vous nourri les vaches aujourd'hui ?",
-  "de": "Hast du die Kühe heute schon gefüttert?\nHast du die Kühe heute schon gefüttert?\nHast du die Kühe heute schon gefüttert?",
-  "he": "האם האכלת את הפרות היום?\nהאם האכלת את הפרות היום?\nהאם האכלת את הפרות היום?",
-  "hu": "Megetetted ma a teheneket?\nMegetetted ma a teheneket?\nMegetetted ma a teheneket?",
-  "id": "Apakah Anda sudah memberi makan sapi hari ini?\nApakah Anda sudah memberi makan sapi hari ini?\nApakah Anda sudah memberi makan sapi hari ini?",
-  "it": "Hai dato da mangiare alle mucche oggi?\nHai dato da mangiare alle mucche oggi?\nHai dato da mangiare alle mucche oggi?",
-  "kk": "Бүгін сиырларды тамақтандырдыңыз ба?\nБүгін сиырларды тамақтандырдыңыз ба?\nБүгін сиырларды тамақтандырдыңыз ба?",
-  "ko": "오늘 소에게 밥을 주셨나요?\n오늘 소에게 밥을 주셨나요?\n오늘 소에게 밥을 주셨나요?",
-  "ms": "Adakah anda sudah memberi makan lembu hari ini?\nAdakah anda sudah memberi makan lembu hari ini?\nAdakah anda sudah memberi makan lembu hari ini?",
-  "nb": "Har du matet kuene i dag?\nHar du matet kuene i dag?\nHar du matet kuene i dag?",
-  "fa": "آیا امروز به گاوها غذا داده‌اید؟\nآیا امروز به گاوها غذا داده‌اید؟\nآیا امروز به گاوها غذا داده‌اید؟",
-  "pl": "Czy nakarmiłeś dzisiaj krowy?\nCzy nakarmiłeś dzisiaj krowy?\nCzy nakarmiłeś dzisiaj krowy?",
-  "pt-br": "Você já alimentou as vacas hoje?\nVocê já alimentou as vacas hoje?\nVocê já alimentou as vacas hoje?",
-  "ro": "Ai hrănit vacile astăzi?\nAi hrănit vacile astăzi?\nAi hrănit vacile astăzi?",
-  "ru": "Вы уже покормили коров сегодня?\nВы уже покормили коров сегодня?\nВы уже покормили коров сегодня?",
-  "sr": "Да ли сте данас нахранили краве?\nДа ли сте данас нахранили краве?\nДа ли сте данас нахранили краве?",
-  "sk": "Nakŕmili ste dnes kravy?\nNakŕmili ste dnes kravy?\nNakŕmili ste dnes kravy?",
-  "es": "¿Ya alimentaste a las vacas hoy?\n¿Ya alimentaste a las vacas hoy?\n¿Ya alimentaste a las vacas hoy?",
-  "sv": "Har du matat korna idag?\nHar du matat korna idag?\nHar du matat korna idag?",
-  "tr": "Bugün inekleri besledin mi?\nBugün inekleri besledin mi?\nBugün inekleri besledin mi?",
-  "uk": "Ви вже погодували корів сьогодні?\nВи вже погодували корів сьогодні?\nВи вже погодували корів сьогодні?",
-  "uz": "Bugun sigirlarni boqdingizmi?\nBugun sigirlarni boqdingizmi?\nBugun sigirlarni boqdingizmi?"
-}
-
-BUTTON_TEXTS = {
-  "vi": "🐮 Mở Nông Trại",
-  "en": "🐮 Open Farm",
-  "ar": "🐮 افتح المزرعة",
-  "be": "🐮 Адкрыць ферму",
-  "ca": "🐮 Obre la granja",
-  "zh-hans": "🐮 开启农场",
-  "zh-hant": "🐮 開啟農場",
-  "hr": "🐮 Otvori farmu",
-  "cs": "🐮 Otevřít farmu",
-  "nl": "🐮 Boerderij openen",
-  "fi": "🐮 Avaa maatila",
-  "fr": "🐮 Ouvrir la ferme",
-  "de": "🐮 Farm öffnen",
-  "he": "🐮 פתח את החווה",
-  "hu": "🐮 Farm megnyitása",
-  "id": "🐮 Buka Pertanian",
-  "it": "🐮 Apri fattoria",
-  "kk": "🐮 Ферманы ашу",
-  "ko": "🐮 농장 열기",
-  "ms": "🐮 Buka Ladang",
-  "nb": "🐮 Åpne gården",
-  "fa": "🐮 باز کردن مزرعه",
-  "pl": "🐮 Otwórz farmę",
-  "pt-br": "🐮 Abrir Fazenda",
-  "ro": "🐮 Deschide ferma",
-  "ru": "🐮 Открыть ферму",
-  "sr": "🐮 Отвори фарму",
-  "sk": "🐮 Otvoriť farmu",
-  "es": "🐮 Abrir granja",
-  "sv": "🐮 Öppna bondgården",
-  "tr": "🐮 Çiftliği Aç",
-  "uk": "🐮 Відкрити ферму",
-  "uz": "🐮 Fermani ochish"
-}
-
-# =====================================================
 # FIREBASE CREDENTIALS
 # =====================================================
 try:
@@ -146,7 +71,7 @@ else:
         chat_ids_to_run = chat_ids
 
 total = len(chat_ids_to_run)
-print(f"Số lượng user sẽ được gửi trong lần chạy này: {total}")
+print(f"Số lượng user sẽ được xử lý trong lần chạy này: {total}")
 
 if total == 0:
     print("Đã gửi xong toàn bộ danh sách. Không còn ai để gửi!")
@@ -159,6 +84,7 @@ if total == 0:
 success = 0
 blocked = 0
 failed = 0
+skipped = 0
 start = time.time()
 
 # =====================================================
@@ -169,28 +95,35 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
         chat_id_int = int(chat_id)
     except ValueError:
         continue
+        
     user_data = users.get(chat_id, {})
     lang = user_data.get("language", "en")
     
-    text = LANG_TEXTS.get(lang, LANG_TEXTS["en"])
-    btnText = BUTTON_TEXTS.get(lang, BUTTON_TEXTS["en"])
+    # CHỈ GỬI CHO USER TIẾNG VIỆT
+    if lang != "vi":
+        skipped += 1
+        # Vẫn cần lưu tiến độ dù bỏ qua
+        try:
+            progress_ref.set(str(chat_id))
+        except Exception:
+            pass
+        continue
 
     payload = {
       "chat_id": chat_id_int,
-      "photo": "https://sf-static.upanhlaylink.com/img/image_20260816300ee21410086e35b8bc8ac0ec157dc9.jpg",
-      "caption": text,
-      "parse_mode": "HTML",
+      "photo": "https://app9006949357.tgcloud.ai/ref.png",
       "reply_markup": {
           "inline_keyboard": [
             [
                 {
-                    "text": btnText,
-                    "url": "https://t.me/HappyCowFarm_bot/play"
+                    "text": "🌟 THAM GIA NGAY 🌟",
+                    "url": "https://t.me/BeThoMo_bot?start=0"
                 }
             ]
          ]
       }
     }
+    
     while True:
         try:
             response = requests.post(
@@ -242,7 +175,7 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
 # =====================================================
 try:
     progress_ref.delete()
-    print("✨ Đã gửi hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
+    print("✨ Đã xử lý hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
 except Exception as e:
     print(f"⚠️ Lỗi khi xóa mốc tiến độ: {e}")
 
@@ -252,8 +185,9 @@ print()
 print("=" * 60)
 print("DONE - KẾT THÚC LẦN CHẠY NÀY")
 print("=" * 60)
-print("Total (lần chạy này) :", total)
-print("Success              :", success)
+print("Total processed      :", total)
+print("Success (Sent vi)    :", success)
+print("Skipped (Not vi)     :", skipped)
 print("Blocked              :", blocked)
 print("Failed               :", failed)
 print(f"Time                 : {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
