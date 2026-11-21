@@ -23,7 +23,7 @@ if not FIREBASE_CREDENTIALS_JSON:
 # =====================================================
 # NỘI DUNG TIN NHẮN & NÚT BẤM (1 NGÔN NGỮ DUY NHẤT)
 # =====================================================
-PHOTO_URL = "https://i.ibb.co/8nLRwCQc/N-ng-C-p-Anti-Cheat-Trong-Hang-Pha-L.png"
+PHOTO_URL = "https://i.ibb.co/ycBRBf65/N-ng-C-p-Anti-Cheat-Trong-Hang-Pha-L.png"
 
 CAPTION_TEXT = """🚨 <b>KÍCH HOẠT LÁ CHẮN ANTI-CHEAT AI 24/7</b> 🚨
 
@@ -38,7 +38,7 @@ Mọi vi phạm đều được AI ghi nhận vào hồ sơ thiết bị và nâ
 ⚠️ <b>Đừng thử thách AI.</b> Chơi Fair Play để bảo vệ tài khoản của bạn!"""
 
 BUTTON_TEXT = "⛏️ Vào Đào Vàng Ngay"
-BUTTON_URL = "https://t.me/BeThoMo_bot?start=0"
+BUTTON_URL = "https://t.me/BeThoMo_bot/play"
 
 # =====================================================
 # FIREBASE CREDENTIALS
