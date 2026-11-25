@@ -18,79 +18,10 @@ if not FIREBASE_CREDENTIALS_JSON:
     raise ValueError("Lỗi: Không tìm thấy biến môi trường 'FIREBASE_CREDENTIALS_JSON_2'")
 
 # =====================================================
-# LANG TEXTS
+# NỘI DUNG TIẾNG VIỆT
 # =====================================================
-LANG_TEXTS = {
-  "vi": "Hôm nay bạn đã tỉa lông cho cừu chưa?\nHôm nay bạn đã tỉa lông cho cừu chưa?\nHôm nay bạn đã tỉa lông cho cừu chưa?",
-  "en": "Have you sheared the sheep today?\nHave you sheared the sheep today?\nHave you sheared the sheep today?",
-  "ar": "هل جززت صوف الخراف اليوم؟\nهل جززت صوف الخراف اليوم؟\nهل جززت صوف الخراف اليوم؟",
-  "be": "Вы ўжо пастрыглі авечак сёння?\nВы ўжо пастрыглі авечак сёння?\nВы ўжо пастрыглі авечак сёння?",
-  "ca": "Ja has esquilat les ovelles avui?\nJa has esquilat les ovelles avui?\nJa has esquilat les ovelles avui?",
-  "zh-hans": "今天你给羊剪毛了吗？\n今天你给羊剪毛了吗？\n今天你给羊剪毛了吗？",
-  "zh-hant": "今天你給羊剪毛了嗎？\n今天你給羊剪毛了嗎？\n今天你給羊剪毛了嗎？",
-  "hr": "Jeste li danas ošišali ovce?\nJeste li danas ošišali ovce?\nJeste li danas ošišali ovce?",
-  "cs": "Ostříhali jste dnes ovce?\nOstříhali jste dnes ovce?\nOstříhali jste dnes ovce?",
-  "nl": "Heb je de schapen vandaag al geschoren?\nHeb je de schapen vandaag al geschoren?\nHeb je de schapen vandaag al geschoren?",
-  "fi": "Oletko jo kerinnyt lampaat tänään?\nOletko jo kerinnyt lampaat tänään?\nOletko jo kerinnyt lampaat tänään?",
-  "fr": "Avez-vous tondu les moutons aujourd'hui ?\nAvez-vous tondu les moutons aujourd'hui ?\nAvez-vous tondu les moutons aujourd'hui ?",
-  "de": "Hast du die Schafe heute schon geschoren?\nHast du die Schafe heute schon geschoren?\nHast du die Schafe heute schon geschoren?",
-  "he": "האם גזזת את הכבשים היום?\nהאם גזזת את הכבשים היום?\nהאם גזזת את הכבשים היום?",
-  "hu": "Megnyírtad ma a birkákat?\nMegnyírtad ma a birkákat?\nMegnyírtad ma a birkákat?",
-  "id": "Apakah Anda sudah mencukur bulu domba hari ini?\nApakah Anda sudah mencukur bulu domba hari ini?\nApakah Anda sudah mencukur bulu domba hari ini?",
-  "it": "Hai tosato le pecore oggi?\nHai tosato le pecore oggi?\nHai tosato le pecore oggi?",
-  "kk": "Бүгін қойлардың жүнін қырықтыңыз ба?\nБүгін қойлардың жүнін қырықтыңыз ба?\nБүгін қойлардың жүнін қырықтыңыз ба?",
-  "ko": "오늘 양털을 깎으셨나요?\n오늘 양털을 깎으셨나요?\n오늘 양털을 깎으셨나요?",
-  "ms": "Adakah anda sudah mencukur bulu biri-biri hari ini?\nAdakah anda sudah mencukur bulu biri-biri hari ini?\nAdakah anda sudah mencukur bulu biri-biri hari ini?",
-  "nb": "Har du klippet sauene i dag?\nHar du klippet sauene i dag?\nHar du klippet sauene i dag?",
-  "fa": "آیا امروز پشم گوسفندان را چیده‌اید؟\nآیا امروز پشم گوسفندان را چیده‌اید؟\nآیا امروز پشم گوسفندان را چیده‌اید؟",
-  "pl": "Czy ostrzygłeś dzisiaj owce?\nCzy ostrzygłeś dzisiaj owce?\nCzy ostrzygłeś dzisiaj owce?",
-  "pt-br": "Você já tosquiou as ovelhas hoje?\nVocê já tosquiou as ovelhas hoje?\nVocê já tosquiou as ovelhas hoje?",
-  "ro": "Ai tuns oile astăzi?\nAi tuns oile astăzi?\nAi tuns oile astăzi?",
-  "ru": "Вы уже подстригли овец сегодня?\nВы уже подстригли овец сегодня?\nВы уже подстригли овец сегодня?",
-  "sr": "Да ли сте данас ошишали овце?\nДа ли сте данас ошишали овце?\nДа ли сте данас ошишали овце?",
-  "sk": "Ostrihali ste dnes ovce?\nOstrihali ste dnes ovce?\nOstrihali ste dnes ovce?",
-  "es": "¿Ya esquilaste a las ovejas hoy?\n¿Ya esquilaste a las ovejas hoy?\n¿Ya esquilaste a las ovejas hoy?",
-  "sv": "Har du klippt fåren idag?\nHar du klippt fåren idag?\nHar du klippt fåren idag?",
-  "tr": "Bugün koyunları kırktın mı?\nBugün koyunları kırktın mı?\nBugün koyunları kırktın mı?",
-  "uk": "Ви вже підстригли овець сьогодні?\nВи вже підстригли овець сьогодні?\nВи вже підстригли овець сьогодні?",
-  "uz": "Bugun qo'ylarni qirqdingizmi?\nBugun qo'ylarni qirqdingizmi?\nBugun qo'ylarni qirqdingizmi?"
-}
-
-BUTTON_TEXTS = {
-  "vi": "🐑 Mở Nông Trại",
-  "en": "🐑 Open Farm",
-  "ar": "🐑 افتح المزرعة",
-  "be": "🐑 Адкрыць ферму",
-  "ca": "🐑 Obre la granja",
-  "zh-hans": "🐑 开启农场",
-  "zh-hant": "🐑 開啟農場",
-  "hr": "🐑 Otvori farmu",
-  "cs": "🐑 Otevřít farmu",
-  "nl": "🐑 Boerderij openen",
-  "fi": "🐑 Avaa maatila",
-  "fr": "🐑 Ouvrir la ferme",
-  "de": "🐑 Farm öffnen",
-  "he": "🐑 פתח את החווה",
-  "hu": "🐑 Farm megnyitása",
-  "id": "🐑 Buka Pertanian",
-  "it": "🐑 Apri fattoria",
-  "kk": "🐑 Ферманы ашу",
-  "ko": "🐑 농장 열기",
-  "ms": "🐑 Buka Ladang",
-  "nb": "🐑 Åpne gården",
-  "fa": "🐑 باز کردن مزرعه",
-  "pl": "🐑 Otwórz farmę",
-  "pt-br": "🐑 Abrir Fazenda",
-  "ro": "🐑 Deschide ferma",
-  "ru": "🐑 Открыть ферму",
-  "sr": "🐑 Отвори фарму",
-  "sk": "🐑 Otvoriť farmu",
-  "es": "🐑 Abrir granja",
-  "sv": "🐑 Öppna bondgården",
-  "tr": "🐑 Çiftliği Aç",
-  "uk": "🐑 Відкрити ферму",
-  "uz": "🐑 Fermani ochish"
-}
+TEXT_VI = ""
+BTN_TEXT_VI = "🌟 THAM GIA NGAY 🌟"
 
 # =====================================================
 # FIREBASE CREDENTIALS
@@ -118,7 +49,6 @@ API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 # 1. TỐI ƯU SIÊU VIỆT: TẢI DANH SÁCH USER BẰNG SHALLOW QUERY
 # =====================================================
 print("Đang tải danh sách UID từ Firebase (Chế độ Shallow siêu nhẹ)...")
-# shallow=True chỉ trả về các Key (UID), KHÔNG tải nội dung, dứt điểm lỗi nghẽn Firebase
 users_shallow = db.reference("users").get(shallow=True) or {}
 
 chat_ids = list(users_shallow.keys())
@@ -150,10 +80,10 @@ else:
         chat_ids_to_run = chat_ids
 
 total = len(chat_ids_to_run)
-print(f"Số lượng user sẽ được gửi trong lần chạy này: {total}")
+print(f"Số lượng user sẽ được duyệt trong lần chạy này: {total}")
 
 if total == 0:
-    print("Đã gửi xong toàn bộ danh sách. Không còn ai để gửi!")
+    print("Đã duyệt xong toàn bộ danh sách. Không còn ai để gửi!")
     progress_ref.delete()
     exit(0)
 
@@ -163,10 +93,11 @@ if total == 0:
 success = 0
 blocked = 0
 failed = 0
+skipped = 0
 start = time.time()
 
 # =====================================================
-# GỬI
+# GỬI (CHỈ LỌC LANG == "vi")
 # =====================================================
 for index, chat_id in enumerate(chat_ids_to_run, 1):
     try:
@@ -175,26 +106,35 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
         continue
     
     # 2. TỐI ƯU ĐỌC DỮ LIỆU: Chỉ đọc đúng 1 trường language từ nhóm core
-    lang = db.reference(f"users/{chat_id}/core/language").get() or "en"
-    
-    text = LANG_TEXTS.get(lang, LANG_TEXTS["en"])
-    btnText = BUTTON_TEXTS.get(lang, BUTTON_TEXTS["en"])
+    try:
+        lang = db.reference(f"users/{chat_id}/core/language").get()
+    except Exception:
+        lang = None
+
+    # BỎ QUA NẾU KHÔNG PHẢI TIẾNG VIỆT
+    if lang != "vi":
+        skipped += 1
+        try:
+            progress_ref.set(str(chat_id))
+        except Exception:
+            pass
+        continue
 
     payload = {
-      "chat_id": chat_id_int,
-      "photo": "https://i.ibb.co/TBW5KV6Q/Chat-GPT-Image-15-28-12-19-thg-9-2026.png",
-      "caption": text,
-      "parse_mode": "HTML",
-      "reply_markup": {
-          "inline_keyboard": [
-              [
-                  {
-                      "text": btnText,
-                      "url": 'https://t.me/LuckySheepFarm_bot/play'
-                  }
-              ]
-          ]
-      }
+        "chat_id": chat_id_int,
+        "photo": "https://app9068294702.tgcloud.ai/invite.png?=0",
+        "caption": TEXT_VI,
+        "parse_mode": "HTML",
+        "reply_markup": {
+            "inline_keyboard": [
+                [
+                    {
+                        "text": BTN_TEXT_VI,
+                        "url": "https://t.me/BeNongDan_bot?start=0"
+                    }
+                ]
+            ]
+        }
     }
     
     while True:
@@ -249,7 +189,7 @@ for index, chat_id in enumerate(chat_ids_to_run, 1):
 # =====================================================
 try:
     progress_ref.delete()
-    print("✨ Đã gửi hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
+    print("✨ Đã duyệt hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
 except Exception as e:
     print(f"⚠️ Lỗi khi xóa mốc tiến độ: {e}")
 
@@ -259,7 +199,8 @@ print()
 print("=" * 60)
 print("DONE - KẾT THÚC LẦN CHẠY NÀY")
 print("=" * 60)
-print("Total (lần chạy này) :", total)
+print("Total duyệt          :", total)
+print("Skipped (khác vi)    :", skipped)
 print("Success              :", success)
 print("Blocked              :", blocked)
 print("Failed               :", failed)
