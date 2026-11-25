@@ -10,7 +10,7 @@ import time
 # =====================================================
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 FIREBASE_CREDENTIALS_JSON = os.getenv("FIREBASE_CREDENTIALS_JSON")
-DATABASE_URL = os.getenv("FIREBASE_DATABASE_URL", "https://happy-cow-farm-default-rtdb.asia-southeast1.firebasedatabase.app/")
+DATABASE_URL = os.getenv("FIREBASE_DATABASE_URL", "https://happycowfarm-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
 if not BOT_TOKEN:
     raise ValueError("Lỗi: Không tìm thấy biến môi trường 'TELEGRAM_BOT_TOKEN'")
