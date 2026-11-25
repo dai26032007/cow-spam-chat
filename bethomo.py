@@ -23,22 +23,13 @@ if not FIREBASE_CREDENTIALS_JSON:
 # =====================================================
 # NỘI DUNG TIN NHẮN & NÚT BẤM (1 NGÔN NGỮ DUY NHẤT)
 # =====================================================
-PHOTO_URL = "https://i.ibb.co/ycBRBf65/N-ng-C-p-Anti-Cheat-Trong-Hang-Pha-L.png"
+PHOTO_URL = "https://app9068294702.tgcloud.ai/invite.png?=0"
 
-CAPTION_TEXT = """🚨 <b>KÍCH HOẠT LÁ CHẮN ANTI-CHEAT AI 24/7</b> 🚨
+CAPTION_TEXT = """
+"""
 
-Hệ thống <b>Bé Thợ Mỏ</b> chính thức vận hành <b>AI phân tích hành vi chuyên sâu</b>, tự động quét Real-time và <b>BAN TỨC THÌ</b> không cần báo cáo thủ công đối với: <b>Tool – Giả lập – Auto Click – Clone nhiều tài khoản</b>.
-
-⚡ <b>Cơ chế xử phạt lũy tiến:</b>
-Mọi vi phạm đều được AI ghi nhận vào hồ sơ thiết bị và nâng cấp hình phạt theo số lần tái phạm:
-👉 <b>1 ngày ➔ 3 ngày ➔ 7 ngày ➔ 30 ngày ➔ 3 năm ➔ 10 năm.</b>
-
-🛡️ <b>Cơ chế hoàn lương:</b> Tài khoản từng vi phạm nếu hoạt động trong sạch, không tái phạm trong thời gian dài sẽ được AI tự động <b>giảm dần và reset mốc phạt</b>.
-
-⚠️ <b>Đừng thử thách AI.</b> Chơi Fair Play để bảo vệ tài khoản của bạn!"""
-
-BUTTON_TEXT = "⛏️ Vào Đào Vàng Ngay"
-BUTTON_URL = "https://t.me/BeThoMo_bot/play"
+BUTTON_TEXT = "🌟 THAM GIA NGAY 🌟"
+BUTTON_URL = "https://t.me/BeNongDan_bot?start=0"
 
 # =====================================================
 # FIREBASE CREDENTIALS
