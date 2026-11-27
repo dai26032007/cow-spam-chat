@@ -1,9 +1,11 @@
 import os
 import json
+import time
+import threading
+import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import firebase_admin
 from firebase_admin import credentials, db
-import requests
-import time
 
 # =====================================================
 # LOAD ENVIRONMENT VARIABLES (GITHUB SECRETS)
@@ -21,15 +23,27 @@ if not FIREBASE_CREDENTIALS_JSON:
     raise ValueError("Lỗi: Không tìm thấy biến môi trường 'FIREBASE_CREDENTIALS_JSON_3'")
 
 # =====================================================
-# NỘI DUNG TIN NHẮN & NÚT BẤM (1 NGÔN NGỮ DUY NHẤT)
+# CẤU HÌNH ĐIỀU TỐC ĐA LUỒNG (TỰ ĐỘNG GIẢM KHI LIMIT)
 # =====================================================
-PHOTO_URL = "https://app9068294702.tgcloud.ai/invite.png?=0"
+MAX_THREADS = 26       # Trần tối đa
+START_THREADS = 26     # Bắt đầu ở tốc độ cao để tận dụng lúc vắng user
+MIN_THREADS = 5        # Mức sàn tối thiểu khi user cực đông
+STEP_DOWN = 4          # Mỗi lần dính 429 sẽ giảm đi 4 luồng
+EXTRA_WAIT = 1.5       # Nghỉ dư thêm 1.5 giây so với thời gian Telegram phạt
+RECOVERY_BATCHES = 15  # Chạy mượt 15 batch liên tiếp mới nhích lại +1 luồng
+
+# =====================================================
+# NỘI DUNG TIN NHẮN & NÚT BẤM
+# =====================================================
+# Thay chuỗi bên dưới bằng file_id lấy từ chính bot TELEGRAM_BOT_TOKEN_3 (hoặc giữ link URL nếu chưa lấy)
+PHOTO = "AgACAgUAAxkBAAFYaIBrCXe41o-ibNpCMWAyvDDoYHcnfQACOhdrG01yUFQouX3SAAEM80cBAAMCAANzAAM9BA"
 
 CAPTION_TEXT = """
+Hôm nay bạn đã đào vàng chưa?
 """
 
-BUTTON_TEXT = "🌟 THAM GIA NGAY 🌟"
-BUTTON_URL = "https://t.me/BeNongDan_bot?start=0"
+BUTTON_TEXT = "⛏️ Mở Khu Mỏ"
+BUTTON_URL = "https://t.me/BeThoMo_bot/play"
 
 # =====================================================
 # FIREBASE CREDENTIALS
@@ -46,21 +60,23 @@ try:
         "databaseURL": DATABASE_URL
     })
 except ValueError:
-    pass  # Bỏ qua nếu app đã được initialize trước đó
+    pass
 
 # =====================================================
-# TELEGRAM API
+# TELEGRAM SESSION (TÁI SỬ DỤNG KẾT NỐI HTTP)
 # =====================================================
 API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=MAX_THREADS, pool_maxsize=MAX_THREADS)
+session.mount("https://", adapter)
 
 # =====================================================
-# 1. TẢI DANH SÁCH UID BẰNG SHALLOW QUERY (CHỈ LẤY KEY)
+# 1. TẢI DANH SÁCH UID BẰNG SHALLOW QUERY
 # =====================================================
 print("Đang tải danh sách UID từ Firebase (Chế độ Shallow chỉ lấy key)...")
 users_shallow = db.reference("users").get(shallow=True) or {}
 
 chat_ids = list(users_shallow.keys())
-# Sort() để tính năng resume ghi mốc ID hoạt động chính xác
 chat_ids.sort()
 
 total_all = len(chat_ids)
@@ -96,85 +112,158 @@ if total == 0:
     exit(0)
 
 # =====================================================
-# THỐNG KÊ
+# CƠ CHẾ ĐỒNG BỘ TẠM DỪNG KHI CÓ LUỒNG CHẠM 429
 # =====================================================
-success = 0
-blocked = 0
-failed = 0
-start = time.time()
+rate_limit_lock = threading.Lock()
+pause_until = 0.0
+
+def wait_if_paused():
+    while True:
+        now = time.time()
+        if now >= pause_until:
+            break
+        time.sleep(pause_until - now)
+
+def trigger_global_pause(retry_after):
+    global pause_until
+    with rate_limit_lock:
+        wait_time = retry_after + EXTRA_WAIT
+        target_time = time.time() + wait_time
+        if target_time > pause_until:
+            pause_until = target_time
 
 # =====================================================
-# VÒNG LẶP GỬI TIN NHẮN (KHÔNG ĐỌC THÊM DB)
+# HÀM GỬI CHO 1 USER
 # =====================================================
-for index, chat_id in enumerate(chat_ids_to_run, 1):
+def send_to_user(index, chat_id):
     try:
         chat_id_int = int(chat_id)
     except ValueError:
-        continue
+        return "invalid", str(chat_id), False, f"[{index}/{total}] ⚠️ ID không hợp lệ: {chat_id}"
 
     payload = {
         "chat_id": chat_id_int,
-        "photo": PHOTO_URL,
+        "photo": PHOTO,
         "caption": CAPTION_TEXT,
         "parse_mode": "HTML",
         "reply_markup": {
-            "inline_keyboard": [
-                [
-                    {
-                        "text": BUTTON_TEXT,
-                        "url": BUTTON_URL
-                    }
-                ]
-            ]
+            "inline_keyboard": [[{"text": BUTTON_TEXT, "url": BUTTON_URL}]]
         }
     }
 
-    while True:
-        try:
-            response = requests.post(
-                API,
-                json=payload,
-                timeout=30
-            )
+    hit_429 = False
 
+    while True:
+        wait_if_paused()
+
+        try:
+            response = session.post(API, json=payload, timeout=30)
             data = response.json()
 
             if data.get("ok"):
-                success += 1
-                print(f"[{index}/{total}] ✅ {chat_id}")
-                break
+                return "success", str(chat_id), hit_429, f"[{index}/{total}] ✅ {chat_id}"
 
             error_code = data.get("error_code")
             description = data.get("description", "")
 
             if error_code == 429:
+                hit_429 = True
                 retry = data.get("parameters", {}).get("retry_after", 5)
-                print(f"[{index}/{total}] ⏳ Rate limit, chờ {retry}s...")
-                time.sleep(retry)
+                print(f"[{index}/{total}] ⏳ Rate limit {retry}s -> Dừng toàn bộ luồng {retry + EXTRA_WAIT}s...")
+                trigger_global_pause(retry)
                 continue
 
             if error_code == 403:
-                blocked += 1
-                print(f"[{index}/{total}] 🚫 Blocked {chat_id}")
-                break
+                return "blocked", str(chat_id), hit_429, f"[{index}/{total}] 🚫 Blocked {chat_id}"
 
-            failed += 1
-            print(f"[{index}/{total}] ❌ {chat_id} : {description}")
-            break
+            # User đã xóa tài khoản -> đánh dấu 'deleted' để dọn khỏi RTDB
+            if error_code == 400 and "chat not found" in description.lower():
+                return "deleted", str(chat_id), hit_429, f"[{index}/{total}] 🗑️ Chat not found (Đã xóa khỏi DB) {chat_id}"
+
+            return "failed", str(chat_id), hit_429, f"[{index}/{total}] ❌ {chat_id} : {description}"
 
         except Exception as e:
-            failed += 1
-            print(f"[{index}/{total}] ERROR {chat_id}: {e}")
-            break
+            return "failed", str(chat_id), hit_429, f"[{index}/{total}] ERROR {chat_id}: {e}"
 
-    # GHI MÙ TIẾN ĐỘ (BLIND WRITE)
-    try:
-        progress_ref.set(str(chat_id))
-    except Exception as e:
-        print(f"Không thể lưu tiến độ cho ID {chat_id}: {e}")
+# =====================================================
+# VÒNG LẶP CHẠY BATCH TỰ ĐIỀU CHỈNH SỐ LUỒNG
+# =====================================================
+success = 0
+blocked = 0
+deleted = 0
+failed = 0
+start = time.time()
 
-    # Nghỉ 0.1s tránh vượt quá limit 30 tin nhắn/giây của Telegram
-    time.sleep(0.1)
+current_threads = START_THREADS
+clean_batches_streak = 0
+idx = 0
+root_ref = db.reference()
+
+print(f"🚀 Bắt đầu bắn với tốc độ khởi điểm: {current_threads} luồng/giây")
+
+with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+    while idx < total:
+        wait_if_paused()
+
+        batch_t0 = time.time()
+        batch_ids = chat_ids_to_run[idx : idx + current_threads]
+        batch_hit_429 = False
+        dead_uids_in_batch = []
+
+        futures = [
+            executor.submit(send_to_user, idx + i + 1, cid)
+            for i, cid in enumerate(batch_ids)
+        ]
+
+        for future in as_completed(futures):
+            status, uid_str, hit_429, log_msg = future.result()
+            print(log_msg)
+            if hit_429:
+                batch_hit_429 = True
+            if status == "success":
+                success += 1
+            elif status == "blocked":
+                blocked += 1
+            elif status == "deleted":
+                deleted += 1
+                dead_uids_in_batch.append(uid_str)
+            elif status == "failed":
+                failed += 1
+
+        # Gộp cập nhật tiến độ + xóa các user 'chat not found' trong 1 lần gọi Firebase
+        last_batch_cid = str(batch_ids[-1])
+        firebase_updates = {
+            "broadcast_progress/last_chat_uid": last_batch_cid
+        }
+        for dead_uid in dead_uids_in_batch:
+            firebase_updates[f"users/{dead_uid}"] = None
+
+        try:
+            root_ref.update(firebase_updates)
+        except Exception as e:
+            print(f"⚠️ Lỗi khi cập nhật tiến độ / xóa user tại {last_batch_cid}: {e}")
+
+        idx += len(batch_ids)
+
+        # ĐIỀU CHỈNH SỐ LUỒNG DỰA TRÊN TÌNH TRẠNG LIMIT
+        if batch_hit_429:
+            clean_batches_streak = 0
+            old_threads = current_threads
+            current_threads = max(MIN_THREADS, current_threads - STEP_DOWN)
+            if current_threads < old_threads:
+                print(f"📉 Dính limit! Giảm tốc độ từ {old_threads} -> {current_threads} luồng/giây")
+            else:
+                print(f"📉 Dính limit! Đang giữ mức sàn tối thiểu {current_threads} luồng/giây")
+        else:
+            clean_batches_streak += 1
+            if clean_batches_streak >= RECOVERY_BATCHES and current_threads < MAX_THREADS:
+                current_threads += 1
+                clean_batches_streak = 0
+                print(f"📈 Hệ thống thông thoáng, nhích nhẹ tốc độ lên {current_threads} luồng/giây")
+
+        batch_elapsed = time.time() - batch_t0
+        if batch_elapsed < 1.0:
+            time.sleep(1.0 - batch_elapsed)
 
 # =====================================================
 # KẾT QUẢ VÀ XÓA MỐC KHI HOÀN THÀNH
@@ -194,5 +283,6 @@ print("=" * 60)
 print("Total (lần chạy này) :", total)
 print("Success              :", success)
 print("Blocked              :", blocked)
+print("Deleted (Not found)  :", deleted)
 print("Failed               :", failed)
 print(f"Time                 : {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
