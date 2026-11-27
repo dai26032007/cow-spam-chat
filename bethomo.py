@@ -35,7 +35,6 @@ RECOVERY_BATCHES = 15  # Chạy mượt 15 batch liên tiếp mới nhích lại
 # =====================================================
 # NỘI DUNG TIN NHẮN & NÚT BẤM
 # =====================================================
-# Thay chuỗi bên dưới bằng file_id lấy từ chính bot TELEGRAM_BOT_TOKEN_3 (hoặc giữ link URL nếu chưa lấy)
 PHOTO = "AgACAgUAAxkBAAFYaIBrCXe41o-ibNpCMWAyvDDoYHcnfQACOhdrG01yUFQouX3SAAEM80cBAAMCAANzAAM9BA"
 
 CAPTION_TEXT = """
@@ -74,41 +73,15 @@ session.mount("https://", adapter)
 # 1. TẢI DANH SÁCH UID BẰNG SHALLOW QUERY
 # =====================================================
 print("Đang tải danh sách UID từ Firebase (Chế độ Shallow chỉ lấy key)...")
-users_shallow = db.reference("users").get(shallow=True) or {}
+users_ref = db.reference("users")
+users_shallow = users_ref.get(shallow=True) or {}
 
 chat_ids = list(users_shallow.keys())
-chat_ids.sort()
-
-total_all = len(chat_ids)
-print(f"Tổng số user trong Database: {total_all}")
-
-# =====================================================
-# ĐỌC TIẾN ĐỘ TỪ FIREBASE (RESUME BẰNG INDEX)
-# =====================================================
-progress_ref = db.reference("broadcast_progress/last_chat_uid")
-last_chat_uid = progress_ref.get()
-
-if not last_chat_uid:
-    print("Chưa có mốc tiến độ trên DB, bắt đầu chạy từ đầu danh sách!")
-    chat_ids_to_run = chat_ids
-else:
-    last_chat_uid = str(last_chat_uid)
-    print(f"Tìm thấy tiến độ cũ trên Database. Mốc ID cuối là: {last_chat_uid}")
-
-    if last_chat_uid in chat_ids:
-        last_index = chat_ids.index(last_chat_uid)
-        chat_ids_to_run = chat_ids[last_index + 1:]
-        print(f"Đã tìm thấy ID {last_chat_uid} ở vị trí {last_index + 1}/{total_all}.")
-    else:
-        print(f"Không tìm thấy ID {last_chat_uid} trong danh sách, chạy lại từ đầu!")
-        chat_ids_to_run = chat_ids
-
-total = len(chat_ids_to_run)
-print(f"Số lượng user sẽ được gửi trong lần chạy này: {total}")
+total = len(chat_ids)
+print(f"Tổng số user sẽ gửi: {total}")
 
 if total == 0:
-    print("Đã gửi xong toàn bộ danh sách. Không còn ai để gửi!")
-    progress_ref.delete()
+    print("Không có user nào để gửi!")
     exit(0)
 
 # =====================================================
@@ -136,10 +109,11 @@ def trigger_global_pause(retry_after):
 # HÀM GỬI CHO 1 USER
 # =====================================================
 def send_to_user(index, chat_id):
+    uid_str = str(chat_id)
     try:
-        chat_id_int = int(chat_id)
+        chat_id_int = int(uid_str)
     except ValueError:
-        return "invalid", str(chat_id), False, f"[{index}/{total}] ⚠️ ID không hợp lệ: {chat_id}"
+        return "invalid", uid_str, False, f"[{index}/{total}] ⚠️ ID không hợp lệ: {uid_str}"
 
     payload = {
         "chat_id": chat_id_int,
@@ -161,7 +135,7 @@ def send_to_user(index, chat_id):
             data = response.json()
 
             if data.get("ok"):
-                return "success", str(chat_id), hit_429, f"[{index}/{total}] ✅ {chat_id}"
+                return "success", uid_str, hit_429, f"[{index}/{total}] ✅ {uid_str}"
 
             error_code = data.get("error_code")
             description = data.get("description", "")
@@ -174,16 +148,16 @@ def send_to_user(index, chat_id):
                 continue
 
             if error_code == 403:
-                return "blocked", str(chat_id), hit_429, f"[{index}/{total}] 🚫 Blocked {chat_id}"
+                return "blocked", uid_str, hit_429, f"[{index}/{total}] 🚫 Blocked {uid_str}"
 
             # User đã xóa tài khoản -> đánh dấu 'deleted' để dọn khỏi RTDB
             if error_code == 400 and "chat not found" in description.lower():
-                return "deleted", str(chat_id), hit_429, f"[{index}/{total}] 🗑️ Chat not found (Đã xóa khỏi DB) {chat_id}"
+                return "deleted", uid_str, hit_429, f"[{index}/{total}] 🗑️ Chat not found (Đã xóa khỏi DB) {uid_str}"
 
-            return "failed", str(chat_id), hit_429, f"[{index}/{total}] ❌ {chat_id} : {description}"
+            return "failed", uid_str, hit_429, f"[{index}/{total}] ❌ {uid_str} : {description}"
 
         except Exception as e:
-            return "failed", str(chat_id), hit_429, f"[{index}/{total}] ERROR {chat_id}: {e}"
+            return "failed", uid_str, hit_429, f"[{index}/{total}] ERROR {uid_str}: {e}"
 
 # =====================================================
 # VÒNG LẶP CHẠY BATCH TỰ ĐIỀU CHỈNH SỐ LUỒNG
@@ -197,7 +171,6 @@ start = time.time()
 current_threads = START_THREADS
 clean_batches_streak = 0
 idx = 0
-root_ref = db.reference()
 
 print(f"🚀 Bắt đầu bắn với tốc độ khởi điểm: {current_threads} luồng/giây")
 
@@ -206,9 +179,9 @@ with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         wait_if_paused()
 
         batch_t0 = time.time()
-        batch_ids = chat_ids_to_run[idx : idx + current_threads]
+        batch_ids = chat_ids[idx : idx + current_threads]
         batch_hit_429 = False
-        dead_uids_in_batch = []
+        dead_uids_in_batch = {}
 
         futures = [
             executor.submit(send_to_user, idx + i + 1, cid)
@@ -226,22 +199,16 @@ with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
                 blocked += 1
             elif status == "deleted":
                 deleted += 1
-                dead_uids_in_batch.append(uid_str)
+                dead_uids_in_batch[uid_str] = None
             elif status == "failed":
                 failed += 1
 
-        # Gộp cập nhật tiến độ + xóa các user 'chat not found' trong 1 lần gọi Firebase
-        last_batch_cid = str(batch_ids[-1])
-        firebase_updates = {
-            "broadcast_progress/last_chat_uid": last_batch_cid
-        }
-        for dead_uid in dead_uids_in_batch:
-            firebase_updates[f"users/{dead_uid}"] = None
-
-        try:
-            root_ref.update(firebase_updates)
-        except Exception as e:
-            print(f"⚠️ Lỗi khi cập nhật tiến độ / xóa user tại {last_batch_cid}: {e}")
+        # Xóa hàng loạt các user 'chat not found' trong batch (nếu có)
+        if dead_uids_in_batch:
+            try:
+                users_ref.update(dead_uids_in_batch)
+            except Exception as e:
+                print(f"⚠️ Lỗi khi xóa user rác khỏi DB: {e}")
 
         idx += len(batch_ids)
 
@@ -266,21 +233,15 @@ with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
             time.sleep(1.0 - batch_elapsed)
 
 # =====================================================
-# KẾT QUẢ VÀ XÓA MỐC KHI HOÀN THÀNH
+# KẾT QUẢ
 # =====================================================
-try:
-    progress_ref.delete()
-    print("✨ Đã gửi hết danh sách. Xóa mốc tiến độ trên Firebase thành công!")
-except Exception as e:
-    print(f"⚠️ Lỗi khi xóa mốc tiến độ: {e}")
-
 elapsed = time.time() - start
 
 print()
 print("=" * 60)
 print("DONE - KẾT THÚC LẦN CHẠY NÀY")
 print("=" * 60)
-print("Total (lần chạy này) :", total)
+print("Total                :", total)
 print("Success              :", success)
 print("Blocked              :", blocked)
 print("Deleted (Not found)  :", deleted)
